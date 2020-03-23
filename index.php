@@ -54,6 +54,39 @@
         <div class="name">
          <div class="row">
            <div class="col-6">
+             <div class="col-6">
+               <select name="valeur_cinema">
+                 <?php
+// on se connecte à notre base
+$server = "db5000303628.hosting-data.io";
+$dbname = "dbs296615";
+$user = "dbu526524";
+$pass = "jXd)G9)8";
+$numero_salle =$_POST["numero_salle"];
+$capacite_salle =$_POST["capacite_salle"];
+
+
+try{
+   $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+   $bdd = new PDO("mysql:host=$server;dbname=$dbname", $user, $pass,$pdo_options);
+
+          // On recupere tout la liste des noms des cinema dans la table cinema
+        $cinema = $bdd->query("SELECT nom_cinema FROM cinema");
+// On affiche le resultat
+       while ($donnée = $cinema->fetchObject()){
+ ?>
+
+       <option value="<?php echo "$donnée->nom_cinema";?>"><?php echo "$donnée->nom_cinema";?></option>
+
+<?php
+}
+}
+catch(Exception $e){
+       die('Erreur : '.$e->getMessage());
+   }
+?>
+ </select>
+             </div>
             <input type="text" class="form-control" placeholder="Numero Salle" name="numero_salle">
            </div>
            <div class="col-6">

@@ -1,7 +1,9 @@
 <?php
-
+echo bonjour;
  $numero_salle = !empty ($_POST["numero_salle"]) ? $_POST["numero_salle"] :NULL ;
  $capacite_salle = !empty ($_POST["capacite_salle"]) ? $_POST["capacite_salle"] :NULL ;
+ $valeur_cinema = !empty ($_POST["valeur_cinema"]) ? $_POST["valeur_cinema"] :NULL ;
+ echo $valeur_cinema;
 
 // Connection Bdd
  try {
@@ -12,14 +14,19 @@
      {
      echo $sql . "<br>" . $e->getMessage();
      }
-
-     // Envoyer données dans la BDD.
-     $numero_salle=$_POST['numero_salle'];
-      $capacite_salle=$_POST['capacite_salle'];
-      $stmt = $bdd->prepare("INSERT INTO salle (numero_salle, capacite_salle, Id_cinema) VALUES ( :numero_salle, :capacite_salle, :Id_cinema)");
-      $stmt->execute(array(
-          ':numero_salle' => $numero_salle,
-          ':Id_cinema' => 5,
-          ':capacite_salle'=>$capacite_salle));
+// Récupérer valeur
+$recup_idcinema = $bdd->query("SELECT id_cinema FROM cinema WHERE nom_cinema = '".$valeur_cinema."'");
+while ($donnée4 = $recup_idcinema->fetchObject())
+{
+echo "$donnée4->$id_cinema";
+}
+   // Envoyer données dans la BDD.
+ //    $numero_salle=$_POST['numero_salle'];
+//    $capacite_salle=$_POST['capacite_salle'];
+//     $stmt = $bdd->prepare("INSERT INTO salle (numero_salle, capacite_salle, Id_cinema) VALUES ( :numero_salle, :capacite_salle, :Id_cinema)");
+//     $stmt->execute(array(
+//         ':numero_salle' => $numero_salle,
+//         ':Id_cinema' => 5,
+//         ':capacite_salle'=>$capacite_salle));
 
  ?>
